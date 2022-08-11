@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  user-db:
+    image: postgres:13
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: user
+    networks:
+      - cloud-database
+  data-db:
+    image: postgres:13
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: data
+    networks:
+      - cloud-database
+
+networks:
+  cloud-database:
