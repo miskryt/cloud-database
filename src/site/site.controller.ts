@@ -7,4 +7,8 @@ export class SiteController {
   index() {
     return { message: 'Index page of site!' };
   }
+
+  @Get('login')
+  @Render('login')
+  login() {}
 }

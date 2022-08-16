@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.engine('handlebars', engine());
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.useStaticAssets(join(__dirname, '..', 'node_modules/bootstrap/dist/'));
+  app.useStaticAssets(join(__dirname, '..', 'node_modules/bootstrap/'));
   app.useStaticAssets(join(__dirname, '..', 'node_modules/bootstrap-icons/'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('handlebars');
@@ -26,6 +26,8 @@ async function bootstrap() {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  //app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   await app.listen(3000);
 }

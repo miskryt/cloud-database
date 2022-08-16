@@ -1,0 +1,14 @@
+.visible
+{
+    display: block;
+}
+
+.error
+{
+    color: red;
+}
+
+.error.valid
+{
+    color: green;
+}

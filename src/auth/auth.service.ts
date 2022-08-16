@@ -17,6 +17,21 @@ export class AuthService {
   constructor(private prisma: PrismaService, private config: ConfigService) {}
 
   @HttpCode(HttpStatus.OK)
+  async signin(dto: AuthDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+
+    if (user) {
+      delete user.hash;
+    }
+
+    return user;
+  }
+
+  @HttpCode(HttpStatus.OK)
   async signup(dto: CreateUserDto) {
     const hash = await argon.hash(dto.password);
 
@@ -54,6 +69,7 @@ export class AuthService {
     const passwordValid = await argon.verify(user.hash, password);
 
     if (user && passwordValid) {
+      delete user.hash;
       return user;
     }
 
