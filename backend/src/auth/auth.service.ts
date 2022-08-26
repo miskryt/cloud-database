@@ -10,6 +10,7 @@ import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { match } from 'assert';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,13 @@ export class AuthService {
         },
       });
 
-      return this.signToken(user.id, user.email);
+      const pwMatches = await argon.verify(user.hash, dto.password);
+
+      if (!pwMatches) {
+        throw new ForbiddenException('Password does not match!');
+      }
+
+      return await this.signToken(user.id, user.email);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
@@ -61,13 +68,13 @@ export class AuthService {
       throw new ForbiddenException('Credentials are incorrect!');
     }
 
-    return this.signToken(user.id, user.email);
+    return {
+      access_token: await this.signToken(user.id, user.email),
+      id: user.id,
+    };
   }
 
-  async signToken(
-    userId: number,
-    email: string,
-  ): Promise<{ access_token: string }> {
+  async signToken(userId: number, email: string): Promise<string> {
     const payload = {
       id: userId,
       email,
@@ -78,8 +85,6 @@ export class AuthService {
       secret: this.config.get('JWT_SECRET'),
     });
 
-    return {
-      access_token: token,
-    };
+    return token;
   }
 }

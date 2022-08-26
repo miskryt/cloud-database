@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { User } from './_models/user';
+import { Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +12,21 @@ export class AppComponent {
   title: string = 'Cloud database';
   submitMessage = '';
 
-  public formVisible: boolean = false;
+  user: User | undefined;
 
-  showLoginForm(){
-    this.formVisible = true;
+  constructor(
+    private router: Router,
+    private authenticationService: AuthService
+  ) {
+    this.authenticationService.user.subscribe(x => this.user = x);
+  }
+
+  isLoggedIn()
+  {
+    return this.authenticationService.isLoggedIn();
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }

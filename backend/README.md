@@ -30,6 +30,7 @@
 
 ```bash
 $ npm install
+$ npm run prisma:dev:deploy
 ```
 
 ## Running the app

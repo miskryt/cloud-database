@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AuthService, Response } from '../auth/auth.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
-const myNameValidator = (maxLength: number) => (control: FormControl) => {
-  const condition = !!control.value && control.value.length > maxLength;
-  if (!condition) {
-    return {myNameValidator: 'does not match the condition'}
-  }
-  return null;
-}
 
 @Component({
   selector: 'app-login-form',
@@ -23,7 +16,12 @@ export class LoginFormComponent {
   });
 
   errorMessage: string = '';
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    if(this.authService.isLoggedIn())
+    {
+      this.router.navigate(['/users/me']);
+    }
+  }
 
   async onSubmit() {
     const val = this.loginForm.value;
@@ -37,11 +35,10 @@ export class LoginFormComponent {
         .subscribe(
           {
             next: (data) => {
-              localStorage.setItem('isUserLoggedIn', 'true');
-              this.router.navigateByUrl('/users/me');
+              this.router.navigateByUrl('users/me');
             },
             error: (error) => {
-              console.log(error.error);
+              console.log(error)
               this.errorMessage = error.error.message;
             }
           }

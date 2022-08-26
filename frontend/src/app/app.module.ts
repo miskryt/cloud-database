@@ -14,10 +14,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { LoginFormComponent } from './login/login-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { ConfigurationService } from './configuration.service';
-import { UserComponent } from './user/user.component';
+import { PageNotfoundComponent } from './pagenotfound/page-notfound.component';
+import { HomeComponent } from './home/home.component';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthGuardService } from './auth/guards/auth-guard-service';
+import { BearerInterceptor } from './auth/interceptors/bearer-interceptor';
 
 export function initApp(configurationService: ConfigurationService) {
   return () => configurationService.load();
@@ -27,7 +31,8 @@ export function initApp(configurationService: ConfigurationService) {
   declarations: [
     AppComponent,
     LoginFormComponent,
-    UserComponent,
+    PageNotfoundComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,15 +48,23 @@ export function initApp(configurationService: ConfigurationService) {
     MatRadioModule,
     MatCardModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [AuthService,
+  providers: [
+    AuthService,
+    AuthGuardService,
     {
-    provide: APP_INITIALIZER,
-    useFactory: initApp,
-    multi: true,
-    deps: [ConfigurationService]
-  }],
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [ConfigurationService]
+    },
+    {
+      provide: 'LoginActivate',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => true
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
