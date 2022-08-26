@@ -5,6 +5,8 @@ import { PageNotfoundComponent } from './pagenotfound/page-notfound.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './auth/guards/auth-guard-service';
 import { LoginFormComponent } from './login/login-form.component';
+import { RegisterComponent } from './register/register.component';
+import { LoggedOutGuard } from './auth/guards/logged-out-guard';
 
 const routes: Routes = [
   {
@@ -15,11 +17,16 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    //canActivate: [AuthGuardService]
   },
   {
     path: 'login',
     component: LoginFormComponent,
+    canActivate: [LoggedOutGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [LoggedOutGuard]
   },
   {
     path: 'users/me',

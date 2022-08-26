@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthGuardService } from './auth/guards/auth-guard-service';
 import { BearerInterceptor } from './auth/interceptors/bearer-interceptor';
+import { RegisterComponent } from './register/register.component';
 
 export function initApp(configurationService: ConfigurationService) {
   return () => configurationService.load();
@@ -33,6 +34,7 @@ export function initApp(configurationService: ConfigurationService) {
     LoginFormComponent,
     PageNotfoundComponent,
     HomeComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { ValidatorFn, ɵElement, ɵValue } from '@angular/forms';
 
 export interface Response{
   error: boolean,
@@ -20,6 +21,7 @@ export class AuthService {
 
   apiUrl: string = environment.apiUrl;
   loginUrl: string = environment.loginUrl;
+  signUpUrl: string = environment.signUpUrl;
 
   constructor(private http: HttpClient, private router: Router,) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(<string>localStorage.getItem('user')));
@@ -32,6 +34,23 @@ export class AuthService {
 
   login(email: string, password: string) {
     const url = this.apiUrl + this.loginUrl;
+
+    let body = new URLSearchParams();
+    body.set('email', email);
+    body.set('password', password);
+
+    return this.http.post<User>(url, body, {headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      responseType: 'json',})
+      .pipe(map(user => {
+        user.auth_data = window.btoa(email + ':' + password);
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        return user;
+      }));
+  }
+
+  register(email: string, password: string, password2: ɵValue<ɵElement<(null | ValidatorFn)[], null>> | undefined) {
+    const url = this.apiUrl + this.signUpUrl;
 
     let body = new URLSearchParams();
     body.set('email', email);

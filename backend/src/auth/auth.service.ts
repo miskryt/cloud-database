@@ -34,13 +34,10 @@ export class AuthService {
         },
       });
 
-      const pwMatches = await argon.verify(user.hash, dto.password);
-
-      if (!pwMatches) {
-        throw new ForbiddenException('Password does not match!');
-      }
-
-      return await this.signToken(user.id, user.email);
+      return {
+        access_token: await this.signToken(user.id, user.email),
+        id: user.id,
+      };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
