@@ -1,19 +1,20 @@
 
-<mat-card *ngIf="errorMessage && (registerForm.touched || registerForm.dirty)" class="cross-validation-error-message alert alert-danger">
-  {{errorMessage}}
-</mat-card>
+<div class='container'>
+  <div fxLayout="row" fxLayoutAlign="center center" class="content">
 
-<form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>User Information</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+    <mat-card>
+      <mat-card-title>Register</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
 
-      <div class="row">
-        <div class='"col'>
-          <div class="row">
-            <mat-form-field class="full-width">
+          <p *ngIf="errorMessage && (registerForm.touched || registerForm.dirty)" >
+            <mat-card  class="cross-validation-error-message alert alert-danger">
+              {{errorMessage}}
+            </mat-card>
+          </p>
+
+          <p>
+            <mat-form-field>
               <input matInput placeholder="Email" formControlName="email"  type='email'>
               <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
                 Email is <strong>required</strong>
@@ -22,10 +23,11 @@
                 Email field has incorrect format
               </mat-error>
             </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Password" formControlName="password" minlength='6' type='password' (change)="onPasswordChange()">
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password" minlength='6' (change)="onPasswordChange()">
               <mat-error
                 *ngIf="registerForm.controls['password'].hasError('required')">
                 Password is <strong>required</strong>
@@ -35,16 +37,17 @@
                 Min length is 6 symbols
               </mat-error>
             </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Confirm password" formControlName="confirm_password" type="password" minlength='6' (change)="onPasswordChange()">
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Confirm password" formControlName="confirm_password" minlength='6' (change)="onPasswordChange()">
               <mat-error
-                *ngIf="registerForm.controls['confirm_password'].hasError('required')">
-                Confirm password
+                *ngIf="registerForm.controls['password'].hasError('required')">
+                Password is <strong>required</strong>
               </mat-error>
               <mat-error
-                *ngIf="registerForm.controls['confirm_password'].hasError('minlength')">
+                *ngIf="registerForm.controls['password'].hasError('minlength')">
                 Min length is 6 symbols
               </mat-error>
               <mat-error
@@ -52,14 +55,24 @@
                 Password doesn't match!
               </mat-error>
             </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
+          </p>
 
-    <mat-card-actions>
-      <button  mat-raised-button color="primary" type="submit">Submit</button>
-      <a href='/register'>Register</a>
-    </mat-card-actions>
-  </mat-card>
-</form>
+
+
+          <div class="button" >
+            <button type="submit" mat-raised-button color="primary">Register</button>
+          </div>
+
+          <br/>
+          <div class='button'>
+            <a href='/login'>Login</a>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
+
+

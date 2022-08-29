@@ -27,6 +27,8 @@ export class AppComponent {
   }
 
   logout() {
+    console.log('asdadsdasadsdas');
     this.authenticationService.logout();
+    window.location.reload();
   }
 }

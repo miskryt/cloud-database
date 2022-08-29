@@ -17,9 +17,10 @@ export class LoginFormComponent {
 
   errorMessage: string = '';
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+
     if(this.authService.isLoggedIn())
     {
-      this.router.navigate(['/users/me']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -35,7 +36,7 @@ export class LoginFormComponent {
         .subscribe(
           {
             next: (data) => {
-              this.router.navigateByUrl('users/me');
+              this.router.navigateByUrl('/dashboard');
             },
             error: (error) => {
               console.log(error)

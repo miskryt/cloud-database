@@ -1,36 +1,28 @@
-.full-width {
-  width: 100%;
-}
-
-.shipping-card {
-  min-width: 120px;
-  margin: 20px auto;
-}
-
-.mat-radio-button {
-  display: block;
-  margin: 5px 0;
-}
-
-.row {
+:host {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  margin: 100px 0px;
 }
 
-.col {
-  flex: 1;
-  margin-right: 20px;
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
 }
 
-.col:last-child {
-  margin-right: 0;
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
 }
 
-.cross-validation-error-message
-{
-  margin-top: 10px;
-  color: red;
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
 }
 
-
-
+.button {
+  display: flex;
+  justify-content: flex-end;
+}

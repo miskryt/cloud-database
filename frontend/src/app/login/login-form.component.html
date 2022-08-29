@@ -1,46 +1,58 @@
 
-<mat-card *ngIf="errorMessage && (loginForm.touched || loginForm.dirty)" class="cross-validation-error-message alert alert-danger">
-  {{errorMessage}}
-</mat-card>
+<div class='container'>
+  <div fxLayout="row" fxLayoutAlign="center center" class="content">
 
-<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>User Information</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+    <mat-card>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
 
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Email" formControlName="email"  type='email'>
-            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
-              Email field has incorrect format
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Password" formControlName="password" minlength='6' type=''>
-            <mat-error
-              *ngIf="loginForm.controls['password'].hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
-            <mat-error
-              *ngIf="loginForm.controls['password'].hasError('minlength')">
-              Min length is 6 symbols
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-card-content>
+          <p *ngIf="errorMessage && (loginForm.touched || loginForm.dirty)" >
+            <mat-card  class="cross-validation-error-message alert alert-danger">
+              {{errorMessage}}
+            </mat-card>
+          </p>
 
-    <mat-card-actions>
-      <button  mat-raised-button color="primary" type="submit">Submit</button>
-      <a href='/register'>Register</a>
-    </mat-card-actions>
-  </mat-card>
-</form>
+          <p>
+            <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email"  type='email'>
+              <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+                Email field has incorrect format
+              </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password" minlength='6'>
+              <mat-error
+                *ngIf="loginForm.controls['password'].hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="loginForm.controls['password'].hasError('minlength')">
+                Min length is 6 symbols
+              </mat-error>
+            </mat-form-field>
+          </p>
+
+
+
+          <div class="button">
+            <button type="submit" mat-raised-button color="primary">Login</button>
+          </div>
+
+          <br/>
+          <div class='button'>
+            <a href='/register'>Register</a>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+</div>
+</div>

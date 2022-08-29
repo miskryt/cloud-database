@@ -23,21 +23,37 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthGuardService } from './auth/guards/auth-guard-service';
 import { BearerInterceptor } from './auth/interceptors/bearer-interceptor';
 import { RegisterComponent } from './register/register.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
+import { DataService } from './_services/data.service';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { MatTableModule } from '@angular/material/table';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { CommonModule } from '@angular/common';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { PostDialogComponent } from './post-dialog/post-dialog.component';
 
 export function initApp(configurationService: ConfigurationService) {
   return () => configurationService.load();
 }
 
 @NgModule({
+  entryComponents: [
+    PostDialogComponent
+  ],
   declarations: [
     AppComponent,
     LoginFormComponent,
     PageNotfoundComponent,
     HomeComponent,
     RegisterComponent,
+    PostDialogComponent,
   ],
   imports: [
+    FlexLayoutModule,
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -51,9 +67,17 @@ export function initApp(configurationService: ConfigurationService) {
     MatCardModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatGridListModule,
+    MatMenuModule,
+    LayoutModule,
+    MatCardModule,
+    MatTableModule,
+    DashboardModule,
+    MatSidenavModule
   ],
   providers: [
     AuthService,
+    DataService,
     AuthGuardService,
     {
       provide: APP_INITIALIZER,

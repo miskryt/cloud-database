@@ -3,8 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
-import { ValidatorFn, ɵElement, ɵValue } from '@angular/forms';
 
 export interface Response{
   error: boolean,
@@ -23,7 +21,7 @@ export class AuthService {
   loginUrl: string = environment.loginUrl;
   signUpUrl: string = environment.signUpUrl;
 
-  constructor(private http: HttpClient, private router: Router,) {
+  constructor(private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(<string>localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
   }
@@ -49,7 +47,7 @@ export class AuthService {
       }));
   }
 
-  register(email: string, password: string, password2: ɵValue<ɵElement<(null | ValidatorFn)[], null>> | undefined) {
+  register(email: string, password: string) {
     const url = this.apiUrl + this.signUpUrl;
 
     let body = new URLSearchParams();
@@ -68,8 +66,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('user');
-    //this.userSubject = new User(null);
-    this.router.navigate(['/login']);
   }
 
   get token()

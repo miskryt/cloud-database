@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     if(this.authService.isLoggedIn())
     {
-      this.router.navigate(['/users/me']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -42,11 +42,11 @@ export class RegisterComponent {
 
     if (val.email && val.password)
     {
-      this.authService.register(val.email, val.password, val.confirm_password)
+      this.authService.register(val.email, val.password)
         .subscribe(
           {
             next: (data) => {
-              this.router.navigateByUrl('users/me');
+              this.router.navigateByUrl('/dashboard');
             },
             error: (error) => {
               console.log(error)
