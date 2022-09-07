@@ -77,9 +77,29 @@
         </ul>
       </div>
     </mat-toolbar>
-    <main>
-      <router-outlet></router-outlet>
+
+    <main *ngIf='backendIsAlive'>
+      <router-outlet ></router-outlet>
     </main>
+
+    <main *ngIf='!backendIsAlive'>
+      <div *ngIf='!backendIsAlive' class='container'>
+        <mat-card>
+          <mat-card-title>Warning</mat-card-title>
+          <mat-card-content>
+
+              <p>
+                <mat-card  class="cross-validation-error-message alert alert-danger">
+                  Backend is not operated!
+                </mat-card>
+              </p>
+
+          </mat-card-content>
+        </mat-card>
+        <p></p>
+      </div>
+    </main>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 

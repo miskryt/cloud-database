@@ -1,9 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Data} from '../_models/data';
 import {Observable, of} from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class DataService {
+export class BackendService {
+
+  apiUrl: string = environment.apiUrl;
+  loginUrl: string = environment.loginUrl;
+  signUpUrl: string = environment.signUpUrl;
+  aliveUrl: string = environment.aliveUrl;
 
   ELEMENT_DATA: Data[] = [
     { key: 'Post One', value: 'Web Development', date_posted: new Date() },
@@ -16,7 +23,7 @@ export class DataService {
     { key: 'Post 8', value: 'Web Development 8', date_posted: new Date() },
   ];
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   getData(): Observable<Data[]> {
@@ -33,5 +40,16 @@ export class DataService {
 
   dataLength() {
     return this.ELEMENT_DATA.length;
+  }
+
+  isAlive()
+  {
+    const url = this.apiUrl + this.aliveUrl;
+    const options = {
+      responseType: 'text' as const,
+      observe: 'response' as const
+    };
+
+    return this.http.get(url, options);
   }
 }

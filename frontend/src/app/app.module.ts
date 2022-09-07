@@ -15,7 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { LoginFormComponent } from './login/login-form.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './_services/auth.service';
 import { ConfigurationService } from './configuration.service';
 import { PageNotfoundComponent } from './pagenotfound/page-notfound.component';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
-import { DataService } from './_services/data.service';
+import { BackendService } from './_services/backend.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -77,7 +77,7 @@ export function initApp(configurationService: ConfigurationService) {
   ],
   providers: [
     AuthService,
-    DataService,
+    BackendService,
     AuthGuardService,
     {
       provide: APP_INITIALIZER,

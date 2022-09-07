@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { environment } from '../../../environments/environment';
-import { LoginFormComponent } from '../../login/login-form.component';
 
 @Injectable()
 export class BearerInterceptor  {

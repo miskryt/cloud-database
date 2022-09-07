@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject} from '@angular/core';
-import {DataService} from '../_services/data.service';
+import {BackendService} from '../_services/backend.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -18,7 +18,7 @@ export class PostDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<PostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dataService: DataService
+    public dataService: BackendService
   ) {
   }
 

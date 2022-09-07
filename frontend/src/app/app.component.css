@@ -39,3 +39,16 @@ a:active {
   margin: 0;
   width: 85%;
 }
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
+}

@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {DataService} from '../_services/data.service';
+import {BackendService} from '../_services/backend.service';
 import {Data} from '../_models/data';
 import {DataSource} from '@angular/cdk/table';
 import {Observable} from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../_services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 
@@ -13,7 +13,7 @@ import { PostDialogComponent } from '../post-dialog/post-dialog.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor(private dataService: DataService, public dialog: MatDialog, public auth: AuthService) {
+  constructor(private dataService: BackendService, public dialog: MatDialog, public auth: AuthService) {
   }
 
   displayedColumns = ['date_posted', 'key', 'value', 'delete'];
@@ -41,7 +41,7 @@ export class DashboardComponent {
 }
 
 export class PostDataSource extends DataSource<any> {
-  constructor(private dataService: DataService) {
+  constructor(private dataService: BackendService) {
     super();
   }
 
