@@ -39,7 +39,7 @@ export class AppComponent implements OnInit{
    {
       this.backend.isAlive().subscribe(
        {next:(data:any) => {
-           //this.backendIsAlive = (data.body === HttpStatusCode.Ok.toString());
+           this.backendIsAlive = (data.body === HttpStatusCode.Ok.toString());
          }});
   }
 }
