@@ -8,10 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./post-dialog.component.css']
 })
 export class PostDialogComponent {
-  blogPost = {
+  post = {
     key: '',
-    value: '',
-    date_posted: new Date()
+    value: ''
   };
   public event: EventEmitter<any> = new EventEmitter();
 
@@ -27,7 +26,7 @@ export class PostDialogComponent {
   }
 
   onSubmit(): void {
-    this.event.emit({data: this.blogPost});
+    this.event.emit({data: this.post});
     this.dialogRef.close();
   }
 }
