@@ -7,7 +7,8 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   loginUrl: '/auth/signin',
   signUpUrl: '/auth/signup',
-  aliveUrl: '/auth/alive'
+  aliveUrl: '/auth/alive',
+  addPostUrl: '/data/add',
 };
 
 /*

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   title: string = 'Cloud database';
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   public formVisible: boolean = false;
 
   showLoginForm(){
-    this.router.navigate(['login']);
+    if(this.authService.isLoggedIn())
+    {
+      this.router.navigate(['dashboard']);
+    }
+    else
+    {
+      this.router.navigate(['login']);
+    }
     //this.formVisible = true;
   }
 

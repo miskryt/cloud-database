@@ -21,7 +21,7 @@ export class DashboardComponent {
 
   openDialog(): void {
     let dialogRef = this.dialog.open(PostDialogComponent, {
-      width: '600px',
+      width: '500px',
       data: 'Add Post'
     });
     dialogRef.componentInstance.event.subscribe((result) => {

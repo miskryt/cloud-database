@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Data} from '../_models/data';
-import {Observable, of} from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class BackendService {
 
   apiUrl: string = environment.apiUrl;
-  loginUrl: string = environment.loginUrl;
-  signUpUrl: string = environment.signUpUrl;
+  addPostUrl: string = environment.addPostUrl;
   aliveUrl: string = environment.aliveUrl;
 
   ELEMENT_DATA: Data[] = [
@@ -31,11 +30,26 @@ export class BackendService {
   }
 
   addPost(data: Data) {
+    const url = this.apiUrl + this.addPostUrl;
+
+    const options = {
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      responseType: 'json' as const
+    };
+
+    let body = new URLSearchParams();
+    body.set('key', data.key);
+    body.set('value', data.value);
+
+    this.http.put<Data>(url, body, options).subscribe(
+      () => console.log('Pushed')
+    );
+
     this.ELEMENT_DATA.push(data);
   }
 
   deletePost(index: number) {
-    this.ELEMENT_DATA = [...this.ELEMENT_DATA.slice(0, index), ...this.ELEMENT_DATA.slice(index + 1)];
+    //this.ELEMENT_DATA = [...this.ELEMENT_DATA.slice(0, index), ...this.ELEMENT_DATA.slice(index + 1)];
   }
 
   dataLength() {
