@@ -16,27 +16,36 @@ export class DashboardComponent {
   constructor(private dataService: BackendService, public dialog: MatDialog, public auth: AuthService) {
   }
 
-  displayedColumns = ['date_posted', 'key', 'value', 'delete'];
+  displayedColumns = ['date_created', 'key', 'value', 'delete'];
   dataSource = new PostDataSource(this.dataService);
 
-  openDialog(): void {
+   openDialog(): void {
     let dialogRef = this.dialog.open(PostDialogComponent, {
       width: '500px',
       data: 'Add Post'
     });
-    dialogRef.componentInstance.event.subscribe((result) => {
-      this.dataService.addPost(result.data);
-      this.dataSource = new PostDataSource(this.dataService);
+
+    dialogRef.componentInstance.event.subscribe(async(result) => {
+      await this.dataService.addPost(result.data).subscribe( () => {
+        this.dataSource = new PostDataSource(this.dataService);
+      });
     });
   }
 
-  deletePost(id: number) {
+  async deletePost(id: number, index: number) {
     if (this.auth.isLoggedIn()) {
-      this.dataService.deletePost(id);
-      this.dataSource = new PostDataSource(this.dataService);
+      if(confirm("Are you sure to delete this record?")) {
+        await this.dataService.deletePost(id, index).subscribe((result: any)=>{
+          this.dataSource = new PostDataSource(this.dataService);
+        });
+      }
     } else {
       alert('Login in Before');
     }
+  }
+
+  getFullValue(id: number){
+    console.log('Not implemented');
   }
 }
 
@@ -46,11 +55,10 @@ export class PostDataSource extends DataSource<any> {
   }
 
   connect(): Observable<Data[]> {
+    console.log('PostDataSource');
     return this.dataService.getData();
   }
 
   disconnect() {
   }
-
-
 }

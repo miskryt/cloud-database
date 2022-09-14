@@ -9,27 +9,21 @@ export class BackendService {
 
   apiUrl: string = environment.apiUrl;
   addPostUrl: string = environment.addPostUrl;
+  deletePostUrl: string = environment.deletePostUrl;
   aliveUrl: string = environment.aliveUrl;
+  getDataUrl: string = environment.getDataUrl;
 
-  ELEMENT_DATA: Data[] = [
-    { key: 'Post One', value: 'Web Development', date_posted: new Date() },
-    { key: 'Post 2', value: 'Web Development 2', date_posted: new Date() },
-    { key: 'Post 3', value: 'Web Development 3', date_posted: new Date() },
-    { key: 'Post 4', value: 'Web Development 4', date_posted: new Date() },
-    { key: 'Post 5', value: 'Web Development 5', date_posted: new Date() },
-    { key: 'Post 6', value: 'Web Development 6', date_posted: new Date() },
-    { key: 'Post 7', value: 'Web Development 7', date_posted: new Date() },
-    { key: 'Post 8', value: 'Web Development 8', date_posted: new Date() },
-  ];
+  ELEMENT_DATA: Data[] = [];
 
   constructor(private http: HttpClient) {
   }
 
   getData(): Observable<Data[]> {
-    return of<Data[]>(this.ELEMENT_DATA);
+    const url = this.apiUrl + this.getDataUrl;
+    return this.http.get<Data[]>(url);
   }
 
-  addPost(data: Data) {
+   addPost(data: Data): Observable<Data> {
     const url = this.apiUrl + this.addPostUrl;
 
     const options = {
@@ -38,18 +32,21 @@ export class BackendService {
     };
 
     let body = new URLSearchParams();
-    body.set('key', data.key);
-    body.set('value', data.value);
 
-    this.http.put<Data>(url, body, options).subscribe(
-      () => console.log('Pushed')
-    );
+    body.set('key', data.key ? data.key : '');
+    body.set('value', data.value ? data.value : '');
 
-    this.ELEMENT_DATA.push(data);
+    return this.http.put<Data>(url, body, options);
   }
 
-  deletePost(index: number) {
-    //this.ELEMENT_DATA = [...this.ELEMENT_DATA.slice(0, index), ...this.ELEMENT_DATA.slice(index + 1)];
+   deletePost(id: number, index: number) {
+    const url = `${this.apiUrl + this.deletePostUrl}/${id}`  ;
+    const options = {
+      responseType: 'text' as const,
+      observe: 'response' as const
+    };
+
+    return this.http.delete(url, options);
   }
 
   dataLength() {

@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>{{data}}</h1>
 <div mat-dialog-content>
-  <form class="example-form" (ngSubmit)="onSubmit()">
+  <form class="post-form" (ngSubmit)="onSubmit()" [formGroup]="postForm" novalidate>
     <mat-form-field>
-      <input matInput placeholder="Key" type="text" required [(ngModel)]="post.key" name="key">
+      <input matInput placeholder="Key" type="text" required  formControlName="key">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput placeholder="Value" required [(ngModel)]="post.value" name="value"></textarea>
+      <textarea matInput placeholder="Value" required formControlName="value"></textarea>
     </mat-form-field>
 
     <button mat-raised-button type="submit" color="primary">Save</button>

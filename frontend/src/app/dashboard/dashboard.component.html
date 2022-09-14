@@ -18,9 +18,9 @@
           <mat-card-content>
             <div class="example-container mat-elevation-z8">
               <mat-table #table [dataSource]="dataSource">
-                <ng-container matColumnDef="date_posted">
-                  <mat-header-cell *matHeaderCellDef> Date Posted </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.date_posted  }} </mat-cell>
+                <ng-container matColumnDef="date_created">
+                  <mat-header-cell *matHeaderCellDef> Date Created </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd.MM.YY HH:mm:ss' }} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="key">
                   <mat-header-cell *matHeaderCellDef> Key </mat-header-cell>
@@ -28,13 +28,15 @@
                 </ng-container>
                 <ng-container matColumnDef="value">
                   <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)='getFullValue(element.position)'>{{ (element.value.length > 100) ? (element.value | slice:0:100)+ '...' :  (element.value) }}</a>
+                  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <a
-                      (click)="deletePost(element.position)"
+                      (click)="deletePost(element.id, element.position)"
                       type="button">
                       <mat-icon class="icon">delete</mat-icon>
                     </a>

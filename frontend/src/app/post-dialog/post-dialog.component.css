@@ -1,9 +1,9 @@
-.example-form {
+.post-form {
   display: flex;
   flex-direction: column;
 }
 
-.example-form > * {
+.post-form > * {
   width: 100%;
 }
 

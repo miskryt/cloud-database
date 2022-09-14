@@ -9,6 +9,8 @@ export const environment = {
   signUpUrl: '/auth/signup',
   aliveUrl: '/auth/alive',
   addPostUrl: '/data/add',
+  deletePostUrl: '/data/delete',
+  getDataUrl: '/data/get',
 };
 
 /*

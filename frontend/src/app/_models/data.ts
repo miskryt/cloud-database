@@ -1,5 +1,6 @@
 export interface Data {
   key: string;
   value: string;
-  date_posted: Date;
+  date_created?: Date;
+  date_modified?: Date;
 }

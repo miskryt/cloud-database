@@ -5,4 +5,5 @@ export const environment = {
   signUpUrl: '/auth/signup',
   aliveUrl: '/auth/alive',
   addPostUrl: '/data/add',
+  getDataUrl: '/data/get',
 };
