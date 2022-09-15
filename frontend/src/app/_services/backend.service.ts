@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Data} from '../_models/data';
+import { Data, DataResponse } from '../_models/data';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -18,12 +18,12 @@ export class BackendService {
   constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<Data[]> {
+  getData(pageSize: number, currentPage: number): Observable<DataResponse> {
     const url = this.apiUrl + this.getDataUrl;
-    return this.http.get<Data[]>(url);
+    return this.http.get<DataResponse>(url + '?page=' + currentPage + '&pageSize='+ pageSize);
   }
 
-   addPost(data: Data): Observable<Data> {
+  addPost(data: Data): Observable<Data> {
     const url = this.apiUrl + this.addPostUrl;
 
     const options = {

@@ -4,3 +4,8 @@ export interface Data {
   date_created?: Date;
   date_modified?: Date;
 }
+
+export interface DataResponse{
+  rows:Data[],
+  count:number
+}

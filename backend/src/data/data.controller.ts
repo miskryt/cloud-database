@@ -26,7 +26,11 @@ export class DataController {
   @UseGuards(JwtGuard)
   @Get('get')
   async getAll(@Request() req) {
-    return await this.dataService.get(req.user.userId);
+    return await this.dataService.get(
+      Number(req.user.userId),
+      Number(req.query.pageSize),
+      Number(req.query.page),
+    );
   }
 
   @UseGuards(JwtGuard)

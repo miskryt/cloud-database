@@ -18,14 +18,23 @@ export class DataService {
     return record;
   }
 
-  async get(userId: number) {
+  async get(userId: number, take: number, skip: number) {
+    const count = await this.prisma.data.count();
+
     const records = await this.prisma.data.findMany({
+      take: take,
+      skip: skip,
       where: {
         userId: userId,
       },
     });
 
-    return records;
+    const result = {
+      count: count,
+      rows: records,
+    };
+
+    return result;
   }
 
   async deletePost(id: number, userId: number) {
