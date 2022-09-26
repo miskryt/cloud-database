@@ -19,6 +19,21 @@
 
             <div class="example-container mat-elevation-z8">
               <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+              <div class='spacer' style=' height: 4px' *ngIf='!isLoading'></div>
+
+              <div class='mat-search'>
+                <div class='mat-search-container'>
+                  <div class='mat-search-page-size'>
+                    <div class='mat-search-range-actions'>
+                      <input matInput placeholder="Ex. Pizza" class='mat-search-input' #input/>
+                      <button mat-icon-button aria-label="Search" (click)='search()'>
+                        <mat-icon>search</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <mat-table #table [dataSource]="dataSource">
                 <ng-container matColumnDef="createdAt">
                   <mat-header-cell *matHeaderCellDef> Date Created </mat-header-cell>

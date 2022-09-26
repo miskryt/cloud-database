@@ -16,7 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations:[
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     MatToolbarModule,
@@ -31,7 +31,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     CommonModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   exports: [
     MatToolbarModule,

@@ -18,9 +18,9 @@ export class BackendService {
   constructor(private http: HttpClient) {
   }
 
-  getData(pageSize: number, currentPage: number): Observable<DataResponse> {
+  getData(pageSize: number, currentPage: number, search: string = ''): Observable<DataResponse> {
     const url = this.apiUrl + this.getDataUrl;
-    return this.http.get<DataResponse>(url + '?page=' + currentPage + '&pageSize='+ pageSize);
+    return this.http.get<DataResponse>(url + '?page=' + currentPage + '&pageSize='+ pageSize + '&search='+search);
   }
 
   addPost(data: Data): Observable<Data> {

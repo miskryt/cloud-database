@@ -18,12 +18,61 @@ export class DataService {
     return record;
   }
 
-  async get(userId: number, take: number, skip: number) {
-    const count = await this.prisma.data.count();
+  async search(userId: number, take: number, skip: number, search: string) {
+    const count = await this.prisma.data.count({
+      where: {
+        userId: userId,
+        value: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
+    });
+
+    console.log(count);
+
+    skip = skip * take;
 
     const records = await this.prisma.data.findMany({
       take: take,
       skip: skip,
+
+      where: {
+        userId: userId,
+        OR: [
+          {
+            value: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+          {
+            key: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+
+    const result = {
+      count: count,
+      rows: records,
+    };
+
+    return result;
+  }
+
+  async get(userId: number, take: number, skip: number) {
+    const count = await this.prisma.data.count();
+
+    skip = skip * take;
+
+    const records = await this.prisma.data.findMany({
+      take: take,
+      skip: skip,
+
       where: {
         userId: userId,
       },

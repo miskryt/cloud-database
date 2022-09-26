@@ -17,3 +17,51 @@
 a {
   cursor: pointer;
 }
+
+.example-form-field {
+  width: 200px;
+  display: flex;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-search-input{
+  display: block;
+  color: rgba(0,0,0,.54);
+}
+
+.mat-search-input
+{
+  min-height: 45px;
+  border: 1px dimgray solid;
+  padding: 0px 0px 0px 10px;
+  margin: 10px 10px 1px 1px;
+  width: 310px;
+}
+
+.mat-search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+  min-height: 40px;
+}
+
+.mat-search-page-size {
+  display: flex;
+  align-items: baseline;
+  margin-right: 8px;
+}
+
+.mat-search-range-actions {
+  display: flex;
+  align-items: center;
+}
+
+.mat-icon-button {
+  line-height: 45px;
+}
