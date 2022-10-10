@@ -29,8 +29,6 @@ export class DataService {
       },
     });
 
-    console.log(count);
-
     skip = skip * take;
 
     const records = await this.prisma.data.findMany({
@@ -65,7 +63,11 @@ export class DataService {
   }
 
   async get(userId: number, take: number, skip: number) {
-    const count = await this.prisma.data.count();
+    const count = await this.prisma.data.count({
+      where: {
+        userId: userId,
+      },
+    });
 
     skip = skip * take;
 
