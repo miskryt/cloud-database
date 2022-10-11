@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatCardModule } from '@angular/material/card';
+import { MatCard, MatCardModule } from '@angular/material/card';
 import { LoginFormComponent } from './login/login-form.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './_services/auth.service';
@@ -31,7 +31,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CommonModule } from '@angular/common';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { PostDialogComponent } from './post-dialog/post-dialog.component';
 
 export function initApp(configurationService: ConfigurationService) {
@@ -42,6 +42,7 @@ export function initApp(configurationService: ConfigurationService) {
   entryComponents: [
     PostDialogComponent
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     LoginFormComponent,
@@ -70,10 +71,9 @@ export function initApp(configurationService: ConfigurationService) {
     MatGridListModule,
     MatMenuModule,
     LayoutModule,
-    MatCardModule,
     MatTableModule,
     DashboardModule,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   providers: [
     AuthService,
@@ -93,4 +93,4 @@ export function initApp(configurationService: ConfigurationService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{}

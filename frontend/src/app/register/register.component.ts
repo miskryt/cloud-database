@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
 
   registerForm = this.fb.group({
     email: [null, Validators.compose([Validators.required, Validators.email])],
@@ -18,11 +18,16 @@ export class RegisterComponent {
 
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    if(this.authService.isLoggedIn())
-    {
+  ngOnInit(){
+    if (this.isLoggedIn()) {
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+
+   isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
 
   onPasswordChange() {
@@ -37,7 +42,7 @@ export class RegisterComponent {
   async onSubmit() {
     const val = this.registerForm.value;
 
-    if( this.registerForm.invalid)
+    if(this.registerForm.invalid)
       return;
 
     if (val.email && val.password)

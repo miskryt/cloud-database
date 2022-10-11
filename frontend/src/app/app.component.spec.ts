@@ -1,21 +1,26 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BackendService } from './_services/backend.service';
+import { RegisterComponent } from './register/register.component';
 
-describe('AppComponent', () => { // 2
-  beforeEach((() => { // 3
+let fixture: ComponentFixture<AppComponent>;
+let component: RegisterComponent ;
+
+describe('AppComponent', () => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
       providers:[BackendService, HttpClient, HttpHandler]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.debugElement.componentInstance;
   }));
 
-  it('should create the app', () => { // 4
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
   });
 });

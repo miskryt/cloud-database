@@ -8,7 +8,7 @@
         <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
 
           <p *ngIf="errorMessage && (registerForm.touched || registerForm.dirty)" >
-            <mat-card  class="cross-validation-error-message alert alert-danger">
+            <mat-card  class="cross-validation-error-message alert alert-danger" id='email_error'>
               {{errorMessage}}
             </mat-card>
           </p>
@@ -60,7 +60,7 @@
 
 
           <div class="button" >
-            <button type="submit" mat-raised-button color="primary">Register</button>
+            <button id='submit_button' type="submit" mat-raised-button color="primary">Register</button>
           </div>
 
           <br/>
