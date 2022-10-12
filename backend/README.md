@@ -28,6 +28,8 @@
 
 ## Installation
 
+First you need Postgres database started. You can use Docker for simplifying.
+.env file contains a DATABASE_URL variable with connection string, that you should ajust accordingly.
 ```bash
 $ npm install
 $ npx prisma migrate dev 
@@ -60,15 +62,27 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## API
+```bash
+Query must contain next set of headers:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJhbGci... - optional
+```
+
+```bash
+  apiUrl: 'http://localhost:3000',
+  loginUrl: '/auth/signin',
+  signUpUrl: '/auth/signup',
+  aliveUrl: '/auth/alive',
+  addPostUrl: '/data/add',
+  deletePostUrl: '/data/delete',
+  getDataUrl: '/data/get',
+  ```
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+
 
 ## License
 
